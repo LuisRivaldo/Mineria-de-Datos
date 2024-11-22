@@ -1,0 +1,17 @@
+import pandas as pd
+
+# Cargar el CSV
+df = pd.read_csv('C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/movie_dataset.csv')
+
+# Convertir los valores de la columna release_date en el formato de fecha de pandas
+df['release_date'] = pd.to_datetime(df['release_date'])
+
+#Eliminar columnas que no necesito
+df = df.drop(['id', 'overview'], axis=1)
+
+# Guardar el DataFrame actualizado en un nuevo archivo CSV
+df.to_csv('new-df.csv', index=False)
+
+# Verificar los datos
+print(df.dtypes)
+print(df.head())
