@@ -1,0 +1,32 @@
+from wordcloud import WordCloud
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+# Cargar el CSV
+df = pd.read_csv("new-df.csv")
+
+# Crear carpetas
+output_dir = "WordCloud-Graphs"
+os.makedirs(output_dir, exist_ok=True)
+
+# Combinar todos los textos de los títulos en una sola cadena
+text_data = " ".join(df['title'].dropna().astype(str))
+
+# Crear la nube de palabras
+wordcloud = WordCloud(
+    width=800,
+    height=400,
+    background_color="white",
+    colormap="viridis",
+    max_words=200
+).generate(text_data)
+
+# 4. Visualizar y guardar la nube de palabras
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")  # Eliminar ejes
+plt.title("Word Cloud de Títulos de Películas")
+output_path = os.path.join(output_dir, "Wordcloud.png")
+plt.savefig(output_path)
+plt.show()
