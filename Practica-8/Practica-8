@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# 1. Cargar los datos
+# Cargar los datos
 df = pd.read_csv("new-df.csv")
 
+# Crear carpetas
 output_dir = "Data-Clustering-Graphs"
 os.makedirs(output_dir, exist_ok=True)
-
 output_folder = "Data-Clustering-CSV"
 os.makedirs(output_folder, exist_ok=True)
 
-# 2. Preprocesamiento de datos
+# Preprocesamiento de datos
 # Convertir 'release_date' a tipo datetime y extraer el año
 df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
 df['release_year'] = df['release_date'].dt.year
@@ -27,7 +27,7 @@ df_cluster = df[columns_for_clustering].dropna()  # Eliminar filas con valores f
 scaler = StandardScaler()
 data_scaled = scaler.fit_transform(df_cluster)
 
-# 3. Determinar el número óptimo de clústeres utilizando el método del codo
+# Determinar el número óptimo de clústeres utilizando el método del codo
 inertia = []
 K = range(1, 11)
 for k in K:
@@ -46,12 +46,12 @@ output_path = os.path.join(output_dir, "Metodo-del-codo.png")
 plt.savefig(output_path)
 plt.show()
 
-# 4. Entrenar el modelo de K-Means con un número óptimo de clústeres (por ejemplo, 3)
+# Entrenar el modelo de K-Means con un número óptimo de clústeres
 n_clusters = 3
 kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
 df_cluster['cluster'] = kmeans.fit_predict(data_scaled)
 
-# 5. Visualizar los resultados del clustering
+# Visualizar los resultados del clustering
 # Gráfico de dispersión de los clústeres en 2 dimensiones (popularidad vs. votos)
 plt.figure(figsize=(10, 6))
 sns.scatterplot(
@@ -70,6 +70,6 @@ output_path = os.path.join(output_dir, "clusteres.png")
 plt.savefig(output_path)
 plt.show()
 
-# 6. Guardar los datos con los clústeres asignados
+# Guardar los datos con los clústeres asignados
 output_path = os.path.join(output_folder, "Datos-Clusteres.csv")
 df_cluster.to_csv(output_path, index=False)

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# 1. Cargar y preprocesar los datos
+# Cargar y preprocesar los datos
 df = pd.read_csv("new-df.csv")
 
 # Carpeta para guardar las Graficas
@@ -32,30 +32,30 @@ df['popularity_binary'] = (df['popularity'] > df['popularity'].median()).astype(
 X = df[['vote_count', 'release_year', 'original_language']]  # Características
 y = df['popularity_binary']  # Objetivo
 
-# 2. Dividir los datos en entrenamiento y prueba
+# Dividir los datos en entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 3. Normalizar las características
+# Normalizar las características
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# 4. Entrenar el modelo
+# Entrenar el modelo
 k = 5  # Número de vecinos
 knn = KNeighborsClassifier(n_neighbors=k)
 knn.fit(X_train, y_train)
 
-# 5. Predecir la popularidad
+# Predecir la popularidad
 y_pred = knn.predict(X_test)
 
-# 6. Evaluar el modelo
+# Evaluar el modelo
 print("Matriz de Confusión:")
 print(confusion_matrix(y_test, y_pred))
 print("\nReporte de Clasificación:")
 print(classification_report(y_test, y_pred))
 print("\nPrecisión del Modelo:", accuracy_score(y_test, y_pred))
 
-# 7. Crear y guardar una gráfica de la matriz de confusión
+# Crear y guardar una gráfica de la matriz de confusión
 conf_matrix = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(8, 6))
 sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=['Baja', 'Alta'], yticklabels=['Baja', 'Alta'])
@@ -67,7 +67,7 @@ plt.savefig(output_path)
 print(f"Gráfica de la matriz de confusión guardada en: {output_path}")
 plt.show()
 
-# 8. Crear y guardar una gráfica de precisión vs número de vecinos
+# Crear y guardar una gráfica de precisión vs número de vecinos
 k_values = range(1, 21)  # Probar valores de k desde 1 hasta 20
 accuracies = []
 

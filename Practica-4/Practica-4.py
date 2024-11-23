@@ -4,7 +4,7 @@ import seaborn as sns
 import os
 
 #Se define la carpeta donde estan los archivos CSV
-folder = 'C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/Descriptive_Statistics_CSVs/'
+folder = 'Descriptive_Statistics_CSVs/'
 
 # Archivos CSV creados en la practica 3
 csv_files = {
@@ -19,7 +19,7 @@ csv_files = {
 dataframes = {key: pd.read_csv(os.path.join(folder, file)) for key, file in csv_files.items()}
 
 #Definir carpeta para guardar los graficos
-graphs_folder = 'C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/Data_Visualization_Graphs/'
+graphs_folder = 'Data_Visualization_Graphs/'
 
 #Crear carpeta si no existe
 os.makedirs(graphs_folder, exist_ok=True)

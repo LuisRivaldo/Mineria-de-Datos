@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # Cargar el CSV
-df = pd.read_csv('C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/new-df.csv')
+df = pd.read_csv('new-df.csv')
 
 #Estadisticas descriptivas basicas
 descriptive_stats = df.describe()
@@ -23,7 +23,7 @@ df_genres.name = 'genre'
 df_with_genres = df.drop(columns=['genres']).join(df_genres)
 
 #Definir carpeta para guardar los archivos csv
-output_folder = 'C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/Descriptive_Statistics_CSVs/'
+output_folder = 'Descriptive_Statistics_CSVs/'
 
 #Crear carpeta si no existe
 os.makedirs(output_folder, exist_ok=True)

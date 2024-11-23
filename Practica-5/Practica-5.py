@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import kruskal
 
 # Cargar el DataFrame (ajustar según tu archivo CSV)
-df = pd.read_csv('C:/Users/luiz0/OneDrive/Escritorio/Mineria-de-Datos/new-df.csv')
+df = pd.read_csv('new-df.csv')
 
 # Asegurar que release_date sea tipo datetime
 df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
@@ -21,7 +21,7 @@ print("\n")
 
 merged_df = pd.merge(title_count_language, vote_count_language, left_on='language_group', right_on='original_language')
 
-# 2. Agrupación por géneros
+# Agrupación por géneros
 # Dividir géneros y seleccionar el principal (el primer género)
 df['genre_group'] = df['genres'].str.split(',').str[0]
 title_count_genre = df.groupby('genre_group').size().reset_index(name='num_titles')
@@ -35,7 +35,7 @@ print("\n")
 
 merged_genre_df = pd.merge(title_count_genre, vote_count_genre, on='genre_group')
 
-# 3. Agrupación por épocas basadas en fechas
+# Agrupación por épocas basadas en fechas
 # Extraer el año de la fecha
 df['release_year'] = df['release_date'].dt.year
 # Crear una nueva columna para las décadas
@@ -85,7 +85,7 @@ else:
     print("No hay diferencias significativas entre el número de títulos y la suma de votos por género principal.")
 print("\n")
 
-#3. Kruskal Wallis con agrupacion por epoca
+# 3. Kruskal Wallis con agrupacion por epoca
 stat, p_value = kruskal(merged_epoch_df['num_titles'], merged_epoch_df['total_votes'])
 
 # Mostrar los resultados
